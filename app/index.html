@@ -39,14 +39,14 @@
 
     <footer id="info">
       <p>Double-click to edit a todo</p>
-      <p>Created by --YOUR-NAME-HERE--</p>
+      <p>Created by --Shannon Wynn--</p>
       <p>Based on <a href="http://todomvc.com">TodoMVC</a></p>
     </footer>
 
     <script id="todo-template" type="text/template">
       <li class="{{= completed }}" data-id="{{= id}}">
         <div class="view">
-          <input class="toggle" type="checkbox" checked>
+          <input class="toggle" type="checkbox" {{= checked }}>
           <label>{{= title }}</label>
           <button class="destroy"></button>
         </div>
@@ -58,13 +58,13 @@
       <span id="todo-count"><strong>{{= activeTodoCount}}</strong> left</span>
       <ul id="filters">
         <li>
-          <a class="selected" href="/?selection=all">All</a>
+          <a class="all selected" href="#/all">All</a>
         </li>
         <li>
-          <a class="" href="/?selection=active">Active</a>
+          <a class="active" href="#/active">Active</a>
         </li>
         <li>
-          <a class="" href="/?selection=completed">Completed</a>
+          <a class="completed" href="#completed">Completed</a>
         </li>
       </ul>
       <button id="clear-completed" class="{{= completedClass}}">Clear completed ({{= completedTodos}})</button>
