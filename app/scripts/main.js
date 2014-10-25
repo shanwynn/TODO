@@ -20,18 +20,32 @@ var Item = function (data) {
 };
 
 // submit using enter button - working //
+// check button - working, strike-through working //
 $('#new-todo').keydown(function(event) {
   if (event.keyCode === 13) {
     $('#todo-list').append(todoTemplate(new Item({
       title: $(this).val()
     })));
     $(this).val('');
+    $('[type = checkbox]')
+      .on('click', function(event){
+      $(this).closest("li").toggleClass("completed");
+      $('#todo-list').prop('checked', false);
+      console.log("Check mark is pressed.");
+    });
     console.log("Enter has been pressed.");
   }
 });
 
+$('[type = checkbox]')
+  .on('click', function(event){
+    $(this).closest("li").remove('.view');
+    $('#todo-list').prop('checked', false);
+    });
+    console.log("Delete button was entered.")
+
 // manual addition of items to list - testing item //
-$('#todo-list').append(todoTemplate({
+/*$('#todo-list').append(todoTemplate({
     id: 1,
     title: 'Test Item',
     completed: '',
@@ -44,27 +58,29 @@ $('#todo-list').append(todoTemplate({
     completed: '',
     checked: ''
 }));
+*/
 
 // toggle all button - not working //
 $('.toggle-all')
   .on('click', function(event){
   $(this).closest("li").toggleClass("completed");
   $('.toggle-all').prop('checked', false);
-  console.log("Check mark is pressed.");
+  console.log("Toggle is pressed.");
 });
 
-// check button - working, strikethrough non-functional on new items //
-$('[type = checkbox]')
+// check button - working, strike-through working //
+/*$('[type = checkbox]')
   .on('click', function(event){
   $(this).closest("li").toggleClass("completed");
   $('#todo-list').prop('checked', false);
   console.log("Check mark is pressed.");
 });
+*/
 
 /* delete button - not working */
-$('[type = checkbox].destroy')
-  .on('click', function(event){
-  $(this).toggleClass("destroy");
+$('[type = checkbox]')
+  .on('click', 'li button.destroy', function(event){
+  $(this).parent().remove("destroy");
   $('#todo-list').prop('checked', false);
   console.log("X mark is pressed.");
 });
