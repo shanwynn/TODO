@@ -7,26 +7,69 @@ var todoTemplate   = _.template( $('#todo-template').html() );
 var footerTemplate = _.template( $('#footer-template').html() );
 // Don't remove anything above this line ----------------------- //
 
+// adding new item to list - working //
+var Item = function (data) {
+  var defaults = {
+    id: '',
+    title: '',
+    completed: '',
+    checked: ''
+  };
+
+  return _.extend(defaults, data);
+};
+
+// submit using enter button - working //
 $('#new-todo').keydown(function(event) {
   if (event.keyCode === 13) {
-    $('#new-todo').submit();
+    $('#todo-list').append(todoTemplate(new Item({
+      title: $(this).val()
+    })));
+    $(this).val('');
     console.log("Enter has been pressed.");
   }
 });
 
+// manual addition of items to list - testing item //
 $('#todo-list').append(todoTemplate({
     id: 1,
     title: 'Test Item',
-    completed: ' ',
+    completed: '',
     checked: ''
 }));
 
+$('#todo-list').append(todoTemplate({
+    id: 2,
+    title: 'Needed to test the toggle',
+    completed: '',
+    checked: ''
+}));
+
+// toggle all button - not working //
+$('.toggle-all')
+  .on('click', function(event){
+  $(this).closest("li").toggleClass("completed");
+  $('.toggle-all').prop('checked', false);
+  console.log("Check mark is pressed.");
+});
+
+// check button - working, strikethrough non-functional on new items //
 $('[type = checkbox]')
   .on('click', function(event){
   $(this).closest("li").toggleClass("completed");
   $('#todo-list').prop('checked', false);
   console.log("Check mark is pressed.");
 });
+
+/* delete button - not working */
+$('[type = checkbox].destroy')
+  .on('click', function(event){
+  $(this).toggleClass("destroy");
+  $('#todo-list').prop('checked', false);
+  console.log("X mark is pressed.");
+});
+
+
 
 /*
 //These are examples, please remove and replace with your own code
