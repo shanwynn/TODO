@@ -20,16 +20,16 @@ var Item = function (data) {
 };
 
 // submit using enter button - working //
-// check button - working, strike-through working //
 $('#new-todo').keydown(function(event) {
   if (event.keyCode === 13) {
     $('#todo-list').append(todoTemplate(new Item({
       title: $(this).val()
     })));
+
+// check button - working, strike-through somewhat working //
     $(this).val('');
-    $('[type = checkbox]')
-      .on('click', function(event){
-      $(this).closest("li").toggleClass("completed");
+    $('#todo-list').on('click','li input.toggle', function(event){
+      $(this).closest('li').toggleClass("completed");
       $('#todo-list').prop('checked', false);
       console.log("Check mark is pressed.");
     });
@@ -37,55 +37,34 @@ $('#new-todo').keydown(function(event) {
   }
 });
 
-$('[type = checkbox]')
-  .on('click', function(event){
-    $(this).closest("li").remove('.view');
-    $('#todo-list').prop('checked', false);
-    });
-    console.log("Delete button was entered.")
-
-// manual addition of items to list - testing item //
-/*$('#todo-list').append(todoTemplate({
-    id: 1,
-    title: 'Test Item',
-    completed: '',
-    checked: ''
-}));
-
-$('#todo-list').append(todoTemplate({
-    id: 2,
-    title: 'Needed to test the toggle',
-    completed: '',
-    checked: ''
-}));
-*/
-
-// toggle all button - not working //
-$('.toggle-all')
-  .on('click', function(event){
-  $(this).closest("li").toggleClass("completed");
+// toggle all button - partially working //
+$('#main').on('click', '#toggle-all', function(event) {
+  $('#todo-list').children('li').toggleClass("completed");
   $('.toggle-all').prop('checked', false);
   console.log("Toggle is pressed.");
 });
 
-// check button - working, strike-through working //
-/*$('[type = checkbox]')
-  .on('click', function(event){
-  $(this).closest("li").toggleClass("completed");
-  $('#todo-list').prop('checked', false);
-  console.log("Check mark is pressed.");
-});
-*/
-
-/* delete button - not working */
-$('[type = checkbox]')
-  .on('click', 'li button.destroy', function(event){
-  $(this).parent().remove("destroy");
+// delete button - working //
+$('#todo-list').on('click', 'li button.destroy', function (event) {
+  $(this).parent().remove();
   $('#todo-list').prop('checked', false);
   console.log("X mark is pressed.");
 });
 
+//counter - not working//
+/*
+setInterval(function() {
+  $('#new-todo').done(function (data) {
+    $('#todo-count').text(data.length);
+  });
+}, 1000);
+*/
 
+$('#todoapp footer').html(footerTemplate({
+    activeTodoCount: '',
+    completedTodos: '',
+    completedClass: ''
+}));
 
 /*
 //These are examples, please remove and replace with your own code
@@ -93,6 +72,7 @@ $('#todo-list').append(todoTemplate({
     id: 1,
     title: 'Finish Todo',
     completed: 'completed',
+    checked: ''
 }));
 
 
