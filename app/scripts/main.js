@@ -28,7 +28,7 @@ $('#new-todo').keydown(function(event) {
     $(this).val('');
 
 // check button - working, strike-through working //
-    $('#todo-list').on('click','li input.toggle', function(event){
+    $('#todo-list').on('click','li input.toggle', function (event){
       $(this).closest('li').toggleClass("completed");
       $('#todo-list').prop('checked', false);
       console.log("Check mark is pressed.");
@@ -38,8 +38,8 @@ $('#new-todo').keydown(function(event) {
 });
 
 // toggle all button - partially working //
-$('#main').on('click', '#toggle-all', function(event) {
-  $('#todo-list').children('li').toggleClass("completed");
+$('#main').on('click', '#toggle-all', function (event) {
+  $('#todo-list li').toggleClass("completed");
   console.log("Toggle is pressed.");
 });
 
@@ -61,8 +61,8 @@ setInterval(function() {
 }
 
 //Clear completed items button - not working//
-$('#todoapp footer').on('click', '#clear-completed', function (event) {
-  $(this).remove("completed");
+$('#clear-completed').on('click', 'li button.completedTodos', function (event) {
+  $(this).parent().remove();
 });
 
 $('#todoapp footer').html(footerTemplate({
@@ -80,11 +80,13 @@ $('#todoapp footer').on('click', 'li a.all', function (event) {
 });
 
 //Active items - working//
+
+
 $('#todoapp footer').on('click', 'li a.active', function (event) {
   var completedTodos = $('#todo-list li.completed');
   var activeTodos = $('#todo-list li');
-  $(completedTodos).hide();
   $(activeTodos).not('.completed').show();
+  $(completedTodos).hide();
   console.log('items active');
 });
 
