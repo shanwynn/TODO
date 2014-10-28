@@ -28,26 +28,26 @@ $('#new-todo').keydown(function(event) {
     $(this).val('');
 
 // check button - working, strike-through working //
-    $('#todo-list').on('click','li input.toggle', function (event){
+    $('#todo-list').on('click', 'li input.toggle', function (event){
       $(this).closest('li').toggleClass("completed");
-      $('#todo-list').prop('checked', false);
-      console.log("Check mark is pressed.");
     });
-    console.log("Enter has been pressed.");
   }
 });
 
 // toggle all button - partially working //
-$('#main').on('click', '#toggle-all', function (event) {
-  $('#todo-list li').toggleClass("completed");
-  console.log("Toggle is pressed.");
+$('#toggle-all').click(function() {
+  if ($('li').hasClass( "completed" ) === true) {
+  $('li').removeClass( "completed" );
+  $('.toggle').prop('checked', false);
+}else{
+  $('li').addClass("completed");
+  $('.toggle').prop('checked', true);
+  }
 });
 
 // delete button - working //
 $('#todo-list').on('click', 'li button.destroy', function (event) {
   $(this).parent().remove();
-  $('#todo-list').prop('checked', false);
-  console.log("X mark is pressed.");
 });
 
 //Number of items left - partially working//
@@ -61,7 +61,7 @@ setInterval(function() {
 }
 
 //Clear completed items button - not working//
-$('#clear-completed').on('click', 'li button.completedTodos', function (event) {
+$('#todo-list').on('click', 'li button.destroy', function (event) {
   $(this).parent().remove();
 });
 
@@ -76,7 +76,6 @@ $('#todoapp footer').html(footerTemplate({
 $('#todoapp footer').on('click', 'li a.all', function (event) {
   var allItems = $('#todo-list li');
   $(allItems).show();
-  console.log('all items');
 });
 
 //Active items - working//
@@ -87,7 +86,6 @@ $('#todoapp footer').on('click', 'li a.active', function (event) {
   var activeTodos = $('#todo-list li');
   $(activeTodos).not('.completed').show();
   $(completedTodos).hide();
-  console.log('items active');
 });
 
 //Completed items - working//
@@ -96,7 +94,6 @@ $('#todoapp footer').on('click', 'li a.completed', function (event) {
   var completedTodos = $('#todo-list li.completed');
   $(activeTodos).not('.completed').hide();
   $(completedTodos).show();
-  console.log('items completed');
 });
 
 
