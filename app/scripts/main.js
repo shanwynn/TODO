@@ -34,7 +34,7 @@ $('#new-todo').keydown(function(event) {
   }
 });
 
-// toggle all button - partially working //
+// toggle all button - working //
 $('#toggle-all').click(function() {
   if ($('li').hasClass( "completed" ) === true) {
   $('li').removeClass( "completed" );
@@ -50,8 +50,8 @@ $('#todo-list').on('click', 'li button.destroy', function (event) {
   $(this).parent().remove();
 });
 
-//Number of items left - partially working//
-//Clear completed items button appearing - partially working//
+//Number of items left - working//
+//Clear completed items button appearing - working//
 setInterval(function() {
   var itemsActive = $('#todo-list li').not('.completed').length;
   var itemsCompleted = $('#todo-list li.completed').length;
@@ -61,8 +61,9 @@ setInterval(function() {
 }
 
 //Clear completed items button - not working//
-$('#todo-list').on('click', 'li button.destroy', function (event) {
-  $(this).parent().remove();
+$('#todoapp footer').on('click', 'li a.completed', function (event) {
+  var completedTodos=$('#todo-list li.completed');
+  $(completedTodos).removeClass('.completed');
 });
 
 $('#todoapp footer').html(footerTemplate({
